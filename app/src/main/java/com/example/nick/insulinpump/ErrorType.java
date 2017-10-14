@@ -1,0 +1,5 @@
+package com.example.nick.insulinpump;
+
+public enum ErrorType{
+    LOW_BATTERY, SENSOR_FAILURE, PUMP_FAILURE, DELIVERY_FAILURE, NEEDLE_ASSMBLY_REMOVED, INSULIN_RESERVOIR_REMOVED
+}
