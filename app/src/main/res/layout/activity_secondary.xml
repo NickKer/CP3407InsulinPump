@@ -52,7 +52,8 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/sugar_level_input"/>
 
     <Button
         android:id="@+id/submit_blood_sugar_level"
@@ -66,9 +67,9 @@
         android:id="@+id/auto_mode"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:onClick="goToAutoMode"
         android:layout_marginBottom="14dp"
         android:layout_marginTop="14dp"
+        android:onClick="goToAutoMode"
         android:text="@string/auto_mode"
         android:textSize="28sp" />
 
