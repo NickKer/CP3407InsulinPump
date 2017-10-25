@@ -3,15 +3,17 @@ package com.example.nick.insulinpump;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-public class SecondaryActivity extends AppCompatActivity {
+public class SecondaryActivity extends AppCompatActivity implements View.OnClickListener {
     UserTracker userTracker = UserTracker.getInstance();
     InsulinCalculator insulinCalculator = new InsulinCalculator();
     EditText sugarLevelInput;
+    TextView doseDelivered;
+    Button submitBloodSugarLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,25 +21,24 @@ public class SecondaryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_secondary);
 
         sugarLevelInput = (EditText) findViewById(R.id.sugar_level_input);
-
-        sugarLevelInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                userTracker.setCurrentSugarLevel(Double.parseDouble(s.toString()));
-            }
-        });
+        doseDelivered = (TextView) findViewById(R.id.dose_delivered);
+        submitBloodSugarLevel = (Button) findViewById(R.id.submit_blood_sugar_level);
+        submitBloodSugarLevel.setOnClickListener(this);
     }
 
-    public void goToAutoMode(View view){
+    public void goToAutoMode(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         navigateUpTo(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.submit_blood_sugar_level:
+                userTracker.setCurrentSugarLevel(Double.parseDouble(sugarLevelInput.getText().toString()));
+                insulinCalculator.calculateInsulin();
+                doseDelivered.setText(userTracker.getPreviousInsulinDose() + " units");
+                break;
+        }
     }
 }

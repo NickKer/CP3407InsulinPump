@@ -21,6 +21,8 @@ public class InsulinCalculator {
                 sugarLevel -= 50;
                 userTracker.setCurrentSugarLevel(sugarLevel);
             }
+            userTracker.setPreviousInsulinDose(insulinDose);
+            insulinDose = 0;
         }
     }
 }

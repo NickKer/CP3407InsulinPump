@@ -6,10 +6,9 @@ package com.example.nick.insulinpump;
 
 public class UserTracker {
     private static UserTracker instance = null;
-    double currentSugarLevel;
-    int insulinDose;
-    double sugarLevelBeforeDose;
-    int previousInsulinDose;
+    private double currentSugarLevel;
+    private double sugarLevelBeforeDose;
+    private int previousInsulinDose;
 
     public static UserTracker getInstance() {
         if (instance == null) {
@@ -24,7 +23,14 @@ public class UserTracker {
 
     public double getCurrentSugarLevel() {
         sugarLevelBeforeDose = currentSugarLevel;
-        System.out.println(sugarLevelBeforeDose);
         return currentSugarLevel;
+    }
+
+    public void setPreviousInsulinDose(int insulinDose) {
+        this.previousInsulinDose = insulinDose;
+    }
+
+    public int getPreviousInsulinDose() {
+        return previousInsulinDose;
     }
 }
