@@ -16,11 +16,11 @@
         android:textAlignment="center"
         android:textSize="30sp" />
 
-    <TextView
+    <TextClock
+        android:id="@+id/textClock"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center"
-        android:text="00:00:00"
         android:textAlignment="center"
         android:textSize="75sp" />
 
