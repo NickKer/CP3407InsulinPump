@@ -1,5 +1,6 @@
 package com.example.nick.insulinpump;
 
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     TextView systemMessageTextView;
     TextClock textClock;
+    //needed for timer class
+    Timer timer = Timer.getInstance();
     ArrayList<SystemStatus> systemStatuses;
 
     @Override
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         simulatePump();
     }
 
-    public void simulatePump(){
+    public void simulatePump() {
         /*We will put code here that simulates an order of events for the pump in auto mode*/
 
     }
