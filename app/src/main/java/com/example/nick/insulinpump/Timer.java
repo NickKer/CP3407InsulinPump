@@ -2,8 +2,6 @@ package com.example.nick.insulinpump;
 
 import android.os.Handler;
 
-import java.util.Random;
-
 /**
  * Created by Nick on 24-Sep-17.
  */

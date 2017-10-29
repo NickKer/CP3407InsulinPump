@@ -11,9 +11,9 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class InsulinNotificationManager {
 
-    public InsulinNotificationManager(Context context, String notifTitle, String notifText) {
+    public InsulinNotificationManager(Context context, String notifTitle, String notifText, int notificationId) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(notifTitle).setContentText(notifText);
-        int mNotificationId = 001;
+        int mNotificationId = notificationId;
         android.app.NotificationManager mNotifyMgr = (android.app.NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
     }

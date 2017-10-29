@@ -7,6 +7,7 @@ package com.example.nick.insulinpump;
 public class UserTracker {
     private static UserTracker instance = null;
     private double currentSugarLevel;
+    private int reservoirLevel = 300;
     private double sugarLevelBeforeDose;
     private int previousInsulinDose;
 
@@ -32,5 +33,17 @@ public class UserTracker {
 
     public int getPreviousInsulinDose() {
         return previousInsulinDose;
+    }
+
+    public void resetReservoirLevel() {
+        reservoirLevel = 300;
+    }
+
+    public void setReservoirLevel() {
+        reservoirLevel -= previousInsulinDose;
+    }
+
+    public String getReservoirLevel() {
+        return Integer.toString(reservoirLevel);
     }
 }

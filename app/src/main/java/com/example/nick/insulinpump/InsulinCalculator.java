@@ -1,7 +1,5 @@
 package com.example.nick.insulinpump;
 
-import android.content.Context;
-
 /**
  * Created by Nick on 15-Oct-17.
  */
@@ -20,6 +18,7 @@ public class InsulinCalculator {
                 userTracker.setCurrentSugarLevel(sugarLevel);
             }
             userTracker.setPreviousInsulinDose(insulinDose);
+            userTracker.setReservoirLevel();
             insulinDose = 0;
         }
     }
