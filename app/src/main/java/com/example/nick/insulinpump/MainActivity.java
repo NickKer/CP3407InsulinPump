@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Random rand = new Random();
     Handler handler = new Handler();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,5 +95,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SecondaryActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }
