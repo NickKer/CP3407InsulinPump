@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<SystemStatus> systemStatuses;
     int batLevel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,5 +44,11 @@ public class MainActivity extends AppCompatActivity {
     public void goToManualMode(View view) {
         Intent intent = new Intent(this, SecondaryActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }
