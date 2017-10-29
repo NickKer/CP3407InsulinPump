@@ -21,8 +21,8 @@ public class InsulinCalculator {
                 sugarLevel -= 50;
                 userTracker.setCurrentSugarLevel(sugarLevel);
                 Calendar cal = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-                userTracker.setSdf(sdf.format(cal.getTime()));
+                SimpleDateFormat insulinDeliveryTimestamp = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                userTracker.setSdf(insulinDeliveryTimestamp.format(cal.getTime()));
             }
             userTracker.setPreviousInsulinDose(insulinDose);
             userTracker.setReservoirLevel();

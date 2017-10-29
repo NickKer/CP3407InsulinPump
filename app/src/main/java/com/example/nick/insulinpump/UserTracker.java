@@ -12,7 +12,7 @@ public class UserTracker {
     private int reservoirLevel = 300;
     private double sugarLevelBeforeDose;
     private int previousInsulinDose;
-    private String sdf;
+    private String insulinDeliveryTimestamp;
 
     public static UserTracker getInstance() {
         if (instance == null) {
@@ -50,11 +50,11 @@ public class UserTracker {
         return Integer.toString(reservoirLevel);
     }
 
-    public void setSdf(String sdf) {
-        this.sdf = sdf;
+    public void setSdf(String insulinDeliveryTimestamp) {
+        this.insulinDeliveryTimestamp = insulinDeliveryTimestamp;
     }
 
     public String getSdf() {
-        return sdf;
+        return insulinDeliveryTimestamp;
     }
 }
