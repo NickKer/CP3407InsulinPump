@@ -1,5 +1,8 @@
 package com.example.nick.insulinpump;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import android.app.Application;
 import android.content.ContentValues;
@@ -23,6 +26,9 @@ public class InsulinCalculator extends Application {
                 insulinDose += 1;
                 sugarLevel -= 50;
                 userTracker.setCurrentSugarLevel(sugarLevel);
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat insulinDeliveryTimestamp = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                userTracker.setSdf(insulinDeliveryTimestamp.format(cal.getTime()));
             }
             userTracker.setPreviousInsulinDose(insulinDose);
             userTracker.setReservoirLevel();

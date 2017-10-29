@@ -18,6 +18,7 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
     TextClock textClock;
     TextView systemMessage;
     TextView batteryPercentage;
+    Button replaceReservoir;
     //needed for timer class
     Timer timer = Timer.getInstance();
     TextView reservoirLevel;
@@ -38,6 +39,8 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
         submitBloodSugarLevel = (Button) findViewById(R.id.submit_blood_sugar_level);
         submitBloodSugarLevel.setOnClickListener(this);
         textClock = (TextClock) findViewById(R.id.textClock);
+        replaceReservoir = (Button) findViewById(R.id.replace_reservoir);
+        replaceReservoir.setOnClickListener(this);
         reservoirLevel = (TextView) findViewById(R.id.reservoir_level);
         systemMessage = (TextView) findViewById(R.id.system_message);
         batteryPercentage = (TextView) findViewById(R.id.battery_percentage);
@@ -61,8 +64,8 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
                     systemStatus = new SystemStatus(ErrorType.SUGAR_HIGH, getApplicationContext());
                     systemMessage.setText(systemStatus.systemMessage());
                 }
-                doseDelivered.setText("Last Dose: " + textClock.getText() + " " + userTracker.getPreviousInsulinDose() + " units ");
-                reservoirLevel.setText(userTracker.getReservoirLevel());
+                doseDelivered.setText("Last Dose: " + userTracker.getInsulinDeliveryTimestamp() + " " + userTracker.getPreviousInsulinDose() + " units ");
+                reservoirLevel.setText(getString(R.string.reservoir_level_notif, String.format("%s", userTracker.getReservoirLevel())));
                 if (Integer.parseInt(userTracker.getReservoirLevel()) < 50) {
                     systemStatus = new SystemStatus(ErrorType.INSULIN_RESERVOIR_LOW, getApplicationContext());
                     systemMessage.setText(systemStatus.systemMessage());
@@ -89,6 +92,9 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.submit_blood_sugar_level:
                 userTracker.setCurrentSugarLevel(Double.parseDouble(sugarLevelInput.getText().toString()));
+                break;
+            case R.id.replace_reservoir:
+                userTracker.resetReservoirLevel();
                 break;
         }
     }
