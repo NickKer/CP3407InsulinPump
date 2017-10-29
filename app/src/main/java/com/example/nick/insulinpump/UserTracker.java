@@ -1,5 +1,7 @@
 package com.example.nick.insulinpump;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Nick on 24-Sep-17.
  */
@@ -10,6 +12,7 @@ public class UserTracker {
     private int reservoirLevel = 300;
     private double sugarLevelBeforeDose;
     private int previousInsulinDose;
+    private String sdf;
 
     public static UserTracker getInstance() {
         if (instance == null) {
@@ -45,5 +48,13 @@ public class UserTracker {
 
     public String getReservoirLevel() {
         return Integer.toString(reservoirLevel);
+    }
+
+    public void setSdf(String sdf) {
+        this.sdf = sdf;
+    }
+
+    public String getSdf() {
+        return sdf;
     }
 }
