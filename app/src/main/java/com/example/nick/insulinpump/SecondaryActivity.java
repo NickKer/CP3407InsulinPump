@@ -1,6 +1,7 @@
 package com.example.nick.insulinpump;
 
 import android.content.Intent;
+import android.os.BatteryManager;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,11 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextClock;
 import android.widget.TextView;
+import java.util.Locale;
 
 public class SecondaryActivity extends AppCompatActivity implements View.OnClickListener {
     UserTracker userTracker = UserTracker.getInstance();
     InsulinNotificationManager insulinNM;
     TextClock textClock;
+    TextView systemMessage;
+    TextView batteryPercentage;
     //needed for timer class
     Timer timer = Timer.getInstance();
     TextView reservoirLevel;
@@ -21,6 +25,8 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
     TextView doseDelivered;
     Button submitBloodSugarLevel;
     Handler handler = new Handler();
+    SystemStatus systemStatus;
+    int batLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,23 +39,37 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
         submitBloodSugarLevel.setOnClickListener(this);
         textClock = (TextClock) findViewById(R.id.textClock);
         reservoirLevel = (TextView) findViewById(R.id.reservoir_level);
+        systemMessage = (TextView) findViewById(R.id.system_message);
+        batteryPercentage = (TextView) findViewById(R.id.battery_percentage);
+        BatteryManager bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
+        batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
 
+        batteryPercentage.setText(getString(R.string.battery_percentage, String.format("%s", batLevel)));
 
         // changes notification every 10 seconds based on sugar level.
         Runnable r = new Runnable() {
             public void run() {
                 handler.postDelayed(this, 10000);
+                batteryPercentage.setText(getString(R.string.battery_percentage, String.format("%s", batLevel)));
                 if (userTracker.getCurrentSugarLevel() < 80) {
-                    insulinNM = new InsulinNotificationManager(getApplicationContext(), "Sugar Level Low", "You're sugar level is below 100 mg/dL", 001);
+                    systemStatus = new SystemStatus(ErrorType.SUGAR_LOW, getApplicationContext());
+                    systemMessage.setText(systemStatus.systemMessage());
                 } else if (userTracker.getCurrentSugarLevel() >= 80 && userTracker.getCurrentSugarLevel() <= 140) {
-                    insulinNM = new InsulinNotificationManager(getApplicationContext(), "Sugar Level OK", "You're sugar level is within acceptable parameters", 001);
+                    systemStatus = new SystemStatus(ErrorType.SUGAR_OK, getApplicationContext());
+                    systemMessage.setText(systemStatus.systemMessage());
                 } else if (userTracker.getCurrentSugarLevel() > 140) {
-                    insulinNM = new InsulinNotificationManager(getApplicationContext(), "Sugar Level High", "You're sugar level is above 140mg/dL", 001);
+                    systemStatus = new SystemStatus(ErrorType.SUGAR_HIGH, getApplicationContext());
+                    systemMessage.setText(systemStatus.systemMessage());
                 }
                 doseDelivered.setText("Last Dose: " + textClock.getText() + " " + userTracker.getPreviousInsulinDose() + " units ");
                 reservoirLevel.setText(userTracker.getReservoirLevel());
                 if (Integer.parseInt(userTracker.getReservoirLevel()) < 50) {
-                    insulinNM = new InsulinNotificationManager(getApplicationContext(), "Reservoir Low", "You have less than 50 units remaining", 002);
+                    systemStatus = new SystemStatus(ErrorType.INSULIN_RESERVOIR_LOW, getApplicationContext());
+                    systemMessage.setText(systemStatus.systemMessage());
+                }
+                if (batLevel <= 15) {
+                    systemStatus = new SystemStatus(ErrorType.LOW_BATTERY, getApplicationContext());
+                    systemMessage.setText(systemStatus.systemMessage());
                 }
             }
         };
@@ -60,6 +80,7 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
     public void goToAutoMode(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         navigateUpTo(intent);
+        finish();
     }
 
 

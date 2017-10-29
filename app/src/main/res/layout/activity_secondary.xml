@@ -98,6 +98,6 @@
         android:gravity="center"
         android:text="@string/system_message"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>
