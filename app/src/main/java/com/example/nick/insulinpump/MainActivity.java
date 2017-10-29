@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     systemStatus = new SystemStatus(ErrorType.SUGAR_HIGH, getApplicationContext());
                     systemMessage.setText(systemStatus.systemMessage());
                 }
-                doseDelivered.setText("Last Dose: " + userTracker.getSdf() + " " + userTracker.getPreviousInsulinDose() + " units ");
+                doseDelivered.setText("Last Dose: " + userTracker.getInsulinDeliveryTimestamp() + " " + userTracker.getPreviousInsulinDose() + " units ");
                 reservoirLevel.setText(getString(R.string.reservoir_level_notif, String.format("%s", userTracker.getReservoirLevel())));
                 if (Integer.parseInt(userTracker.getReservoirLevel()) < 50) {
                     systemStatus = new SystemStatus(ErrorType.INSULIN_RESERVOIR_LOW, getApplicationContext());

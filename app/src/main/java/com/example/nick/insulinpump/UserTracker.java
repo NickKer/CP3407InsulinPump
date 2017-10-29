@@ -54,7 +54,7 @@ public class UserTracker {
         this.insulinDeliveryTimestamp = insulinDeliveryTimestamp;
     }
 
-    public String getSdf() {
+    public String getInsulinDeliveryTimestamp() {
         return insulinDeliveryTimestamp;
     }
 }
