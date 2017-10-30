@@ -83,7 +83,6 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
     public void goToAutoMode(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         navigateUpTo(intent);
-        finish();
     }
 
 

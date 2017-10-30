@@ -61,7 +61,7 @@ class InsulinCalculator {
         db.insert("SugarLevel", null, sugarContentValues);
 
         Cursor cursor1 = db.rawQuery("SELECT * FROM SugarLevel", null);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             if (cursor1.moveToNext()) {
                 System.out.println(cursor1.getString(0) + cursor1.getString(1) + cursor1.getString(2) + cursor1.getString(3));
             }

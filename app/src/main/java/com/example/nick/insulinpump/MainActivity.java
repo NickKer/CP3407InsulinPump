@@ -92,12 +92,11 @@ public class MainActivity extends AppCompatActivity {
     public void goToManualMode(View view) {
         Intent intent = new Intent(this, SecondaryActivity.class);
         startActivity(intent);
-        finish();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacksAndMessages(null);
     }
 }
