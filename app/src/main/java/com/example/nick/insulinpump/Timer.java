@@ -12,7 +12,7 @@ class Timer {
     private Timer() {
         Runnable r = new Runnable() {
             public void run() {
-                handler.postDelayed(this, 60000);
+                handler.postDelayed(this, 600000);
                 insulinCalculator.calculateInsulin();
             }
         };
