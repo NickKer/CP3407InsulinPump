@@ -5,32 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.nick.insulinpump.MainActivity">
+    tools:context="com.example.nick.insulinpump.SecondaryActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <TextView
             android:id="@+id/battery_percentage"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_weight="0.5"
             android:gravity="center"
             android:text="@string/battery_percentage"
             android:textAlignment="center"
-            android:layout_weight="0.5"
             android:textSize="15sp" />
+
         <TextView
             android:id="@+id/reservoir_level"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
             android:text="@string/reservoir_level"
             android:textAlignment="center"
-            android:layout_weight="0.5"
             android:textSize="15sp" />
     </LinearLayout>
+
 
     <TextClock
         android:id="@+id/textClock"
@@ -57,14 +60,38 @@
         android:textAlignment="center"
         android:textSize="20sp" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:labelFor="@+id/sugar_level_input"
+        android:text="@string/enter_blood_sugar_level"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/sugar_level_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number" />
+
     <Button
-        android:id="@+id/manual_mode"
+        android:id="@+id/submit_blood_sugar_level"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:onClick="goToManualMode"
+        android:layout_marginTop="14dp"
+        android:text="@string/submit_blood_sugar_level"
+        android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/auto_mode"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginBottom="14dp"
         android:layout_marginTop="14dp"
-        android:text="@string/manual_mode"
+        android:onClick="goToAutoMode"
+        android:text="@string/auto_mode"
         android:textSize="28sp" />
 
     <TextView
@@ -76,5 +103,14 @@
         android:textAlignment="center"
         android:textSize="20sp" />
 
+    <Button
+        android:id="@+id/replace_reservoir"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="14dp"
+        android:layout_marginTop="14dp"
+        android:onClick="goToAutoMode"
+        android:text="@string/replace_reservoir"
+        android:textSize="28sp" />
 
 </LinearLayout>

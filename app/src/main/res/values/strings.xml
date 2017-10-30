@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">InsulinPump</string>
+    <string name="last_insulin_dose_delivered">Last Insulin Dose Delivered</string>
+    <string name="manual_mode">Manual Mode</string>
+    <string name="system_message">System Message</string>
+    <string name="battery_percentage">Battery: %1$s%%</string>
+    <string name="reservoir_level_notif">Remaining: %1$s units</string>
+    <string name="_00_00_0000_00_00pm_00mg">00/00/0000 00:00pm 00mg</string>
+    <string name="auto_mode">Auto Mode</string>
+    <string name="replace_reservoir">Replace Reservoir</string>
+    <string name="reservoir_level">No reservoir connected</string>
+    <string name="enter_blood_sugar_level">Enter Blood Sugar Level:</string>
+    <string name="submit_blood_sugar_level">Submit Blood Sugar Level</string>
+    <string name="create_table_1">CREATE TABLE %1$s (%2$s INTEGER PRIMARY KEY AUTOINCREMENT, %3$s DATETIME DEFAULT CURRENT_TIMESTAMP, %4$s INTEGER)</string>
+    <string name="create_table_2">CREATE TABLE %1$s (%2$s INTEGER PRIMARY KEY  AUTOINCREMENT, %3$s INTEGER, %4$s INTEGER, %5$s TEXT)</string>
+    <string name="create_table_3">CREATE TABLE %1$s (%2$s INTEGER PRIMARY KEY AUTOINCREMENT, %3$s TEXT, %4$s TEXT)</string>
+    <string name="delete_table">DROP TABLE IF EXISTS %1$s</string>
 </resources>

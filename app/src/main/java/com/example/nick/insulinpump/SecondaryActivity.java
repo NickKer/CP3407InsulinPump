@@ -1,55 +1,55 @@
 package com.example.nick.insulinpump;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextClock;
 import android.widget.TextView;
+import java.util.Locale;
 
-import java.util.Random;
-
-public class MainActivity extends AppCompatActivity {
-    static Context context;
+public class SecondaryActivity extends AppCompatActivity implements View.OnClickListener {
     UserTracker userTracker = UserTracker.getInstance();
+    InsulinNotificationManager insulinNM;
     TextClock textClock;
     TextView systemMessage;
     TextView batteryPercentage;
-    TextView reservoirLevel;
-    TextView doseDelivered;
+    Button replaceReservoir;
     //needed for timer class
     Timer timer = Timer.getInstance();
+    TextView reservoirLevel;
+    EditText sugarLevelInput;
+    TextView doseDelivered;
+    Button submitBloodSugarLevel;
+    Handler handler = new Handler();
     SystemStatus systemStatus;
     int batLevel;
-    Random rand = new Random();
-    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        context = getApplicationContext();
+        setContentView(R.layout.activity_secondary);
 
-        systemMessage = (TextView) findViewById(R.id.system_message);
+        sugarLevelInput = (EditText) findViewById(R.id.sugar_level_input);
         doseDelivered = (TextView) findViewById(R.id.dose_delivered);
-        batteryPercentage = (TextView) findViewById(R.id.battery_percentage);
-        reservoirLevel = (TextView) findViewById(R.id.reservoir_level);
+        submitBloodSugarLevel = (Button) findViewById(R.id.submit_blood_sugar_level);
+        submitBloodSugarLevel.setOnClickListener(this);
         textClock = (TextClock) findViewById(R.id.textClock);
-        BatteryManager bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
-
+        replaceReservoir = (Button) findViewById(R.id.replace_reservoir);
+        replaceReservoir.setOnClickListener(this);
+        reservoirLevel = (TextView) findViewById(R.id.reservoir_level);
+        systemMessage = (TextView) findViewById(R.id.system_message);
+        batteryPercentage = (TextView) findViewById(R.id.battery_percentage);
+        BatteryManager bm = (BatteryManager)getSystemService(BATTERY_SERVICE);
         batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
 
         batteryPercentage.setText(getString(R.string.battery_percentage, String.format("%s", batLevel)));
 
-        generateBloodSugar();
-        simulatePump();
-
-    }
-
-    public void simulatePump() {
+        // changes notification every 10 seconds based on sugar level.
         Runnable r = new Runnable() {
             public void run() {
                 handler.postDelayed(this, 10000);
@@ -76,28 +76,30 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
         handler.postDelayed(r, 10000);
     }
 
-    public void generateBloodSugar() {
-        Runnable r = new Runnable() {
-            public void run() {
-                handler.postDelayed(this, 600000);
-                userTracker.setCurrentSugarLevel(rand.nextInt(250 - 50) + 50);
-                System.out.println(rand.nextInt(250 - 50) + 50);
-            }
-        };
-        handler.postDelayed(r, 600000);
-    }
-
-    public void goToManualMode(View view) {
-        Intent intent = new Intent(this, SecondaryActivity.class);
-        startActivity(intent);
+    public void goToAutoMode(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        navigateUpTo(intent);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         handler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.submit_blood_sugar_level:
+                userTracker.setCurrentSugarLevel(Double.parseDouble(sugarLevelInput.getText().toString()));
+                break;
+            case R.id.replace_reservoir:
+                userTracker.resetReservoirLevel();
+                break;
+        }
     }
 }
