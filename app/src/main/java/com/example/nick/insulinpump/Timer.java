@@ -17,7 +17,7 @@ class Timer {
             }
         };
 
-        handler.postDelayed(r, 600000);
+        handler.postDelayed(r, 0);
     }
 
     static Timer getInstance() {
