@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
     private Context context;
 
     DatabaseHandler(Context context) {
@@ -17,7 +17,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(context.getString(R.string.create_table_1, "InsulinDelivered", "InsulinDeliveryId", "TimeStamp", "AmountDelivered"));
-        sqLiteDatabase.execSQL(context.getString(R.string.create_table_2, "SugarLevel", "SugarLevelId", "InsulinDeliveryId", "InsulinDelivered", "SugarLevelMeasured", "SugarLevelType"));
+        sqLiteDatabase.execSQL(context.getString(R.string.create_table_2, "SugarLevel", "SugarLevelId", "InsulinDeliveryId", "SugarLevelMeasured", "SugarLevelType"));
         sqLiteDatabase.execSQL(context.getString(R.string.create_table_3, "SystemMessages", "MessageId", "MessageType", "MessageText"));
 
     }

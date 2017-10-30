@@ -2,17 +2,14 @@ package com.example.nick.insulinpump;
 
 import android.os.Handler;
 
-/**
- * Created by Nick on 24-Sep-17.
- */
-
 // this class runs insulin calculator every 10 minutes
 
-public class Timer {
-    public static Timer instance = null;
-    Handler handler = new Handler();
-    InsulinCalculator insulinCalculator = new InsulinCalculator();
-    public Timer() {
+class Timer {
+    private static Timer instance = null;
+    private Handler handler = new Handler();
+    private InsulinCalculator insulinCalculator = new InsulinCalculator();
+
+    private Timer() {
         Runnable r = new Runnable() {
             public void run() {
                 handler.postDelayed(this, 600000);
@@ -20,10 +17,10 @@ public class Timer {
             }
         };
 
-        handler.postDelayed(r, 600000);
+        handler.postDelayed(r, 0);
     }
 
-    public static Timer getInstance() {
+    static Timer getInstance() {
         if (instance == null) {
             instance = new Timer();
         }

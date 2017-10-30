@@ -1,6 +1,6 @@
 package com.example.nick.insulinpump;
 
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 import android.os.Handler;
@@ -10,18 +10,16 @@ import android.view.View;
 import android.widget.TextClock;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+    static Context context;
     UserTracker userTracker = UserTracker.getInstance();
     TextClock textClock;
     TextView systemMessage;
     TextView batteryPercentage;
     TextView reservoirLevel;
-
     TextView doseDelivered;
-    ;
     //needed for timer class
     Timer timer = Timer.getInstance();
     SystemStatus systemStatus;
@@ -29,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
     Random rand = new Random();
     Handler handler = new Handler();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
 
         systemMessage = (TextView) findViewById(R.id.system_message);
         doseDelivered = (TextView) findViewById(R.id.dose_delivered);
@@ -84,11 +82,11 @@ public class MainActivity extends AppCompatActivity {
     public void generateBloodSugar() {
         Runnable r = new Runnable() {
             public void run() {
-                handler.postDelayed(this, 3600000);
+                handler.postDelayed(this, 600000);
                 userTracker.setCurrentSugarLevel(rand.nextInt(250 - 50) + 50);
             }
         };
-        handler.postDelayed(r, 3600000);
+        handler.postDelayed(r, 600000);
     }
 
     public void goToManualMode(View view) {
