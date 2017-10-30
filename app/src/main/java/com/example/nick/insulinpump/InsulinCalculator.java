@@ -9,12 +9,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-/**
- * Created by Nick on 15-Oct-17.
- */
 // this class delivers insulin if it is above a certain threshold, when called.
-public class InsulinCalculator extends Application {
-    UserTracker userTracker = UserTracker.getInstance();
+class InsulinCalculator {
+    private UserTracker userTracker = UserTracker.getInstance();
     private int insulinDose;
     private double sugarLevel;
     DatabaseHandler dbHandler;
@@ -34,7 +31,7 @@ public class InsulinCalculator extends Application {
             userTracker.setReservoirLevel();
 
             //Inserts values to the Insulin Delivered table
-            dbHandler = new DatabaseHandler(getApplicationContext());
+            dbHandler = new DatabaseHandler(MainActivity.context);
             SQLiteDatabase db = dbHandler.getWritableDatabase();
             ContentValues deliveredContentValues = new ContentValues();
             deliveredContentValues.put("AmountDelivered", insulinDose);
@@ -43,14 +40,14 @@ public class InsulinCalculator extends Application {
             //Gets the ID used for last Insulin Delivery Id
             int deliveryId = 0;
             Cursor cursor = db.rawQuery("SELECT * FROM InsulinDelivered ORDER BY InsulinDeliveryId DESC LIMIT 1", null);
-            if (cursor.moveToNext()){
+            if (cursor.moveToNext()) {
                 deliveryId = cursor.getInt(0);
             }
 
             //Inserts values into the Sugar Level table
             ContentValues sugarContentValues = new ContentValues();
             sugarContentValues.put("InsulinDeliveryId", deliveryId);
-            sugarContentValues.put("SugarLevelMeasured", sugarLevel);
+            sugarContentValues.put("SugarLevelMeasured", userTracker.getSugarLevelBeforeDose());
             double sugarLevelBeforeDose = userTracker.getSugarLevelBeforeDose();
             if (sugarLevelBeforeDose < 80) {
                 sugarContentValues.put("SugarLevelType", "LOW");
@@ -59,7 +56,7 @@ public class InsulinCalculator extends Application {
             } else if (sugarLevelBeforeDose > 140) {
                 sugarContentValues.put("SugarLevelType", "HIGH");
             }
-            db.insert("SugarLevel", null,sugarContentValues);
+            db.insert("SugarLevel", null, sugarContentValues);
 
             Cursor cursor1 = db.rawQuery("SELECT * FROM SugarLevel", null);
             for (int i = 0; i < 10; i++) {

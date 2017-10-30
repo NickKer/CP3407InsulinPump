@@ -12,7 +12,7 @@
     <string name="enter_blood_sugar_level">Enter Blood Sugar Level:</string>
     <string name="submit_blood_sugar_level">Submit Blood Sugar Level</string>
     <string name="create_table_1">CREATE TABLE %1$s (%2$s INTEGER PRIMARY KEY AUTOINCREMENT, %3$s DATETIME DEFAULT CURRENT_TIMESTAMP, %4$s INTEGER)</string>
-    <string name="create_table_2">CREATE TABLE %1$s (%2$s INTEGER PRIMARY KEY  AUTOINCREMENT, %3$s INTEGER, FOREIGN KEY %3$s REFERENCES %4$s(%3$s) , %5$s INTEGER, %6$s TEXT)</string>
+    <string name="create_table_2">CREATE TABLE %1$s (%2$s INTEGER PRIMARY KEY  AUTOINCREMENT, %3$s INTEGER, %4$s INTEGER, %5$s TEXT)</string>
     <string name="create_table_3">CREATE TABLE %1$s (%2$s INTEGER PRIMARY KEY AUTOINCREMENT, %3$s TEXT, %4$s TEXT)</string>
     <string name="delete_table">DROP TABLE IF EXISTS %1$s</string>
 </resources>
