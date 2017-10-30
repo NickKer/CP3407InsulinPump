@@ -85,6 +85,11 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
         navigateUpTo(intent);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacksAndMessages(null);
+    }
 
     @Override
     public void onClick(View v) {

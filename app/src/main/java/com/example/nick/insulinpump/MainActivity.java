@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 handler.postDelayed(this, 600000);
                 userTracker.setCurrentSugarLevel(rand.nextInt(250 - 50) + 50);
+                System.out.println(rand.nextInt(250 - 50) + 50);
             }
         };
         handler.postDelayed(r, 600000);
