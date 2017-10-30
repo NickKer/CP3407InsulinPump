@@ -83,9 +83,13 @@ public class SecondaryActivity extends AppCompatActivity implements View.OnClick
     public void goToAutoMode(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         navigateUpTo(intent);
-        finish();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacksAndMessages(null);
+    }
 
     @Override
     public void onClick(View v) {
